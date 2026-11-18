@@ -1,30 +1,47 @@
 // JavaScript portofolio Arya Nasrullah
-// Dipasang di ketiga halaman dengan defer
-
-// 1. Daftar keahlian (halaman Beranda)
-const skills = [
-  { nama: "HTML", level: "Menengah" },
-  { nama: "CSS", level: "Menengah" },
-  { nama: "Git dan GitHub", level: "Dasar" },
-  { nama: "Desain poster dengan Canva", level: "Mahir" },
-];
-skills.push({ nama: "JavaScript", level: "Dasar" });
-
-console.log("Keahlian Arya Nasrullah:");
-console.table(skills);
+// Dipasang di halaman yang membutuhkan dengan defer
 
 const daftarSkill = document.querySelector("#daftar-skill");
 const jumlahSkill = document.querySelector("#jumlah-skill");
 
-if (daftarSkill && jumlahSkill) {
-  skills.forEach((skill) => {
-    const item = document.createElement("li");
-    item.textContent = `${skill.nama} (${skill.level})`;
-    daftarSkill.appendChild(item);
-  });
+async function muatKeahlian() {
+  if (!daftarSkill || !jumlahSkill) return;
 
-  jumlahSkill.textContent = `Ada ${skills.length} keahlian yang sedang saya kembangkan.`;
+  daftarSkill.innerHTML = "<li>Memuat keahlian...</li>";
+
+  try {
+    const response = await fetch("data/keahlian.json");
+
+    if (!response.ok) {
+      throw new Error("Gagal mengambil data keahlian.");
+    }
+
+    const skills = await response.json();
+
+    if (!Array.isArray(skills)) {
+      throw new Error("Format data keahlian tidak valid.");
+    }
+
+    daftarSkill.replaceChildren();
+
+    skills.forEach((skill) => {
+      const item = document.createElement("li");
+      item.textContent = `${skill.nama} (${skill.level})`;
+      daftarSkill.appendChild(item);
+    });
+
+    jumlahSkill.textContent =
+      `Ada ${skills.length} keahlian yang sedang saya kembangkan.`;
+    console.log("Keahlian Arya Nasrullah:");
+    console.table(skills);
+  } catch (error) {
+    console.error(error);
+    daftarSkill.innerHTML = "<li>Keahlian gagal dimuat.</li>";
+    jumlahSkill.textContent = "Data keahlian tidak dapat ditampilkan.";
+  }
 }
+
+muatKeahlian();
 
 const hobi = ["Bermain futsal", "Membaca komik", "Mendesain poster"];
 for (const item of hobi) {
@@ -32,7 +49,6 @@ for (const item of hobi) {
 }
 console.log(`Jumlah hobi: ${hobi.length}`);
 
-// 2. Tema gelap (semua halaman)
 const tombolTema = document.querySelector("#tombol-tema");
 
 if (tombolTema) {
@@ -44,7 +60,6 @@ if (tombolTema) {
   });
 }
 
-// 3. Penghitung karakter pesan (halaman Kontak)
 const kotakPesan = document.querySelector("#pesan");
 const hitungKarakter = document.querySelector("#hitung-karakter");
 
@@ -54,99 +69,162 @@ if (kotakPesan && hitungKarakter) {
   });
 }
 
-// 4. Daftar proyek dan filter (halaman Proyek)
-const proyek = [
-  {
-    judul: "Halaman Profil Pertama",
-    kategori: "HTML",
-    gambar: "img/proyek-profil.png",
-    alt: "Tangkapan layar halaman profil Arya Nasrullah",
-    deskripsi: "Halaman web pertama saya, dibuat dengan HTML dasar.",
-  },
-  {
-    judul: "Form Kontak",
-    kategori: "HTML",
-    gambar: "img/proyek-kontak.png",
-    alt: "Tangkapan layar form kontak berisi lima isian",
-    deskripsi: "Form dengan label dan validasi bawaan browser.",
-  },
-  {
-    judul: "Tabel Jadwal Belajar",
-    kategori: "HTML",
-    gambar: "img/proyek-jadwal.png",
-    alt: "Tangkapan layar tabel jadwal belajar mandiri",
-    deskripsi: "Jadwal belajar mingguan dengan thead dan tbody.",
-  },
-  {
-    judul: "Portofolio Responsif",
-    kategori: "CSS",
-    gambar: "img/proyek-responsif.png",
-    alt: "Tangkapan layar portofolio di ponsel dan laptop",
-    deskripsi: "Rapi di ponsel, tablet, dan laptop dengan Flexbox.",
-  },
-  {
-    judul: "Kalkulator Nilai Rapor",
-    kategori: "JavaScript",
-    gambar: "img/proyek-kalkulator.png",
-    alt: "Tangkapan layar hasil kalkulator nilai di Console",
-    deskripsi: "Rata-rata dan predikat nilai dengan fungsi JavaScript.",
-  },
-  {
-    judul: "Lima Soal Logika",
-    kategori: "JavaScript",
-    gambar: "img/proyek-logika.png",
-    alt: "Tangkapan layar hasil uji lima soal logika",
-    deskripsi: "Lima fungsi logika yang masing-masing diuji 3 masukan.",
-  },
-];
+let proyek = [];
+let kategoriAktif = "Semua";
 
 const daftarProyek = document.querySelector("#daftar-proyek");
 const jumlahProyek = document.querySelector("#jumlah-proyek");
 
-function buatKartu(item) {
-  return `
-    <article class="kartu">
-      <span class="label">${item.kategori}</span>
-      <h3>${item.judul}</h3>
-      <img src="${item.gambar}" alt="${item.alt}" width="280">
-      <p>${item.deskripsi}</p>
-    </article>`;
+function buatKartuProyek(item) {
+  const kartu = document.createElement("article");
+  kartu.className = "kartu";
+
+  const label = document.createElement("span");
+  label.className = "label";
+  label.textContent = item.kategori;
+
+  const judul = document.createElement("h3");
+  judul.textContent = item.judul;
+
+  const gambar = document.createElement("img");
+  gambar.src = item.gambar;
+  gambar.alt = item.alt;
+  gambar.width = 280;
+  gambar.loading = "lazy";
+
+  const deskripsi = document.createElement("p");
+  deskripsi.textContent = item.deskripsi;
+
+  kartu.append(label, judul, gambar, deskripsi);
+  return kartu;
 }
 
-function tampilkanProyek(daftar) {
-  const semuaKartu = daftar.map((item) => buatKartu(item));
-  daftarProyek.innerHTML = semuaKartu.join("");
-  jumlahProyek.textContent = `Menampilkan ${daftar.length} dari ${proyek.length} proyek`;
+function tampilkanProyek() {
+  if (!daftarProyek || !jumlahProyek) return;
+
+  const proyekTerpilih =
+    kategoriAktif === "Semua"
+      ? proyek
+      : proyek.filter((item) => item.kategori === kategoriAktif);
+
+  daftarProyek.replaceChildren(
+    ...proyekTerpilih.map((item) => buatKartuProyek(item))
+  );
+  jumlahProyek.textContent =
+    `Menampilkan ${proyekTerpilih.length} dari ${proyek.length} proyek`;
 }
 
 function pasangFilter(idTombol, kategori) {
   const tombol = document.querySelector(idTombol);
 
-  if (!tombol) {
-    return;
-  }
+  if (!tombol) return;
 
   tombol.addEventListener("click", () => {
-    if (kategori === "Semua") {
-      tampilkanProyek(proyek);
-    } else {
-      tampilkanProyek(proyek.filter((item) => item.kategori === kategori));
-    }
+    kategoriAktif = kategori;
 
-    const tombolAktif = document.querySelector(".tombol-filter.aktif");
+    document.querySelectorAll(".tombol-filter").forEach((item) => {
+      item.classList.toggle("aktif", item === tombol);
+    });
 
-    if (tombolAktif) {
-      tombolAktif.classList.remove("aktif");
-    }
-
-    tombol.classList.add("aktif");
+    tampilkanProyek();
   });
 }
 
-if (daftarProyek && jumlahProyek) {
-  tampilkanProyek(proyek);
-  pasangFilter("#filter-semua", "Semua");
-  pasangFilter("#filter-html", "HTML");
-  pasangFilter("#filter-css", "CSS");
-  pasangFilter("#filter-javascript", "JavaScript");
+async function muatProyek() {
+  if (!daftarProyek || !jumlahProyek) return;
+
+  jumlahProyek.textContent = "Memuat proyek...";
+
+  try {
+    const response = await fetch("data/proyek.json");
+
+    if (!response.ok) {
+      throw new Error("Gagal mengambil data proyek.");
+    }
+
+    proyek = await response.json();
+
+    if (!Array.isArray(proyek)) {
+      throw new Error("Format data proyek tidak valid.");
+    }
+
+    pasangFilter("#filter-semua", "Semua");
+    pasangFilter("#filter-html", "HTML");
+    pasangFilter("#filter-css", "CSS");
+    pasangFilter("#filter-javascript", "JavaScript");
+    tampilkanProyek();
+  } catch (error) {
+    console.error(error);
+    daftarProyek.replaceChildren();
+    jumlahProyek.textContent = "Data proyek gagal dimuat.";
+  }
 }
+
+muatProyek();
+
+async function ambilRepo() {
+  const daftarRepo = document.querySelector("#daftar-repo-github");
+  const statusRepo = document.querySelector("#status-repo-github");
+
+  if (!daftarRepo || !statusRepo) return;
+
+  statusRepo.textContent = "Memuat repositori GitHub...";
+  daftarRepo.replaceChildren();
+
+  try {
+    const response = await fetch(
+      "https://api.github.com/users/Arya-Nasrullah/repos?sort=updated&per_page=100"
+    );
+
+    if (!response.ok) {
+      throw new Error("Gagal mengambil data repositori GitHub.");
+    }
+
+    const repositori = await response.json();
+
+    if (!Array.isArray(repositori)) {
+      throw new Error("Format data repositori GitHub tidak valid.");
+    }
+
+    if (repositori.length === 0) {
+      statusRepo.textContent = "Belum ada repositori publik.";
+      return;
+    }
+
+    repositori.forEach((repo) => {
+      const kartu = document.createElement("article");
+      kartu.className = "kartu";
+
+      const label = document.createElement("span");
+      label.className = "label";
+      label.textContent = repo.language || "Repository";
+
+      const judul = document.createElement("h3");
+      judul.textContent = repo.name;
+
+      const deskripsi = document.createElement("p");
+      deskripsi.textContent = repo.description || "Belum ada deskripsi.";
+
+      const bintang = document.createElement("p");
+      bintang.textContent = `Bintang: ${repo.stargazers_count}`;
+
+      const tautan = document.createElement("a");
+      tautan.href = repo.html_url;
+      tautan.target = "_blank";
+      tautan.rel = "noopener noreferrer";
+      tautan.textContent = "Lihat repositori di GitHub";
+
+      kartu.append(label, judul, deskripsi, bintang, tautan);
+      daftarRepo.appendChild(kartu);
+    });
+
+    statusRepo.textContent =
+      `Berhasil memuat ${repositori.length} repositori GitHub.`;
+  } catch (error) {
+    console.error(error);
+    statusRepo.textContent =
+      "Repositori gagal dimuat. Periksa koneksi internet.";
+  }
+}
+
+ambilRepo();

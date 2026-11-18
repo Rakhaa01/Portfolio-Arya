@@ -43,14 +43,23 @@
         <h2>Proyek Saya</h2>
         <p>Kumpulan hasil belajar saya di Kelas Industri UBIG.</p>
 
-        <div class="filter" aria-label="Filter kategori proyek">
+        <div class="filter" role="group" aria-label="Filter kategori proyek">
           <button type="button" class="tombol-filter aktif" id="filter-semua">Semua</button>
           <button type="button" class="tombol-filter" id="filter-html">HTML</button>
           <button type="button" class="tombol-filter" id="filter-css">CSS</button>
           <button type="button" class="tombol-filter" id="filter-javascript">JavaScript</button>
         </div>
         <p id="jumlah-proyek" aria-live="polite"></p>
-        <div class="daftar-kartu" id="daftar-proyek"></div>
+        <div class="daftar-kartu galeri-proyek" id="daftar-proyek"></div>
+      </section>
+
+      <section>
+        <h2>Repositori GitHub Saya</h2>
+        <p>Daftar repositori publik dari akun GitHub saya.</p>
+        <p id="status-repo-github" aria-live="polite">
+          Menyiapkan data repositori...
+        </p>
+        <div class="daftar-kartu galeri-proyek" id="daftar-repo-github"></div>
       </section>
 
       <!-- FAQ dengan details dan summary -->
