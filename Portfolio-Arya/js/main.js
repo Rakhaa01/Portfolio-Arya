@@ -96,6 +96,15 @@ function buatKartuProyek(item) {
   deskripsi.textContent = item.deskripsi;
 
   kartu.append(label, judul, gambar, deskripsi);
+
+  if (item.tautan) {
+    const tautan = document.createElement("a");
+    tautan.className = "tombol";
+    tautan.href = item.tautan;
+    tautan.textContent = item.teksTautan || "Lihat proyek";
+    kartu.appendChild(tautan);
+  }
+
   return kartu;
 }
 

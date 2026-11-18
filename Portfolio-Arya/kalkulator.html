@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kalkulator Nilai | Arya Nasrullah</title>
+  <link rel="icon" href="arya-profile.jpeg" type="image/jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js?v=20261118b" defer></script>
+  <script src="js/kalkulator.js" defer></script>
+</head>
+<body>
+  <header>
+    <div class="container navbar">
+      <h1>Arya Nasrullah</h1>
+      <nav class="menu-laptop" aria-label="Navigasi utama">
+        <ul>
+          <li><a href="index.html">Beranda</a></li>
+          <li><a href="proyek.html">Proyek</a></li>
+          <li><a href="kalkulator.html" aria-current="page">Kalkulator Nilai</a></li>
+          <li><a href="kontak.html">Kontak</a></li>
+          <li><a href="kantinsekolah.html">Kantin Sekolah</a></li>
+        </ul>
+      </nav>
+      <details class="menu-ponsel">
+        <summary>Menu</summary>
+        <nav aria-label="Navigasi utama">
+          <ul>
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="proyek.html">Proyek</a></li>
+            <li><a href="kalkulator.html" aria-current="page">Kalkulator Nilai</a></li>
+            <li><a href="kontak.html">Kontak</a></li>
+            <li><a href="kantinsekolah.html">Kantin Sekolah</a></li>
+          </ul>
+        </nav>
+      </details>
+      <button type="button" id="tombol-tema">Mode Gelap</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="kartu" aria-labelledby="judul-kalkulator">
+        <h2 id="judul-kalkulator">Kalkulator Nilai Rapor</h2>
+        <p>Masukkan nilai tugas, UTS, dan UAS untuk menghitung rata-rata, predikat, dan status KKM Arya.</p>
+
+        <form id="form-kalkulator">
+          <p>
+            <label for="tugas">Nilai Tugas</label><br>
+            <input type="number" id="tugas" name="tugas" min="0" max="100" step="any" required>
+          </p>
+          <p>
+            <label for="uts">Nilai UTS</label><br>
+            <input type="number" id="uts" name="uts" min="0" max="100" step="any" required>
+          </p>
+          <p>
+            <label for="uas">Nilai UAS</label><br>
+            <input type="number" id="uas" name="uas" min="0" max="100" step="any" required>
+          </p>
+          <p class="keterangan">Nilai harus berada di antara 0 dan 100. KKM: 75.</p>
+          <button type="submit">Hitung Nilai</button>
+        </form>
+
+        <p id="hasil-kalkulator" role="status" aria-live="polite" hidden></p>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <p>Kontak: <a href="mailto:sakkarepwes23@gmail.com">Arya.Nasrullah@gmail.com</a> |
+      <a href="https://github.com/portofolio-arya" target="_blank" rel="noopener noreferrer">GitHub</a> |
+      <a href="https://www.youtube.com/@AryaNewWebDevelopment" target="_blank" rel="noopener noreferrer">YouTube</a></p>
+    <p>&copy; 2026 Arya Nasrullah. Dibuat di Kelas Industri UBIG.</p>
+  </footer>
+</body>
+</html>

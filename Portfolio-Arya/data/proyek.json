@@ -32,7 +32,9 @@
     "kategori": "JavaScript",
     "gambar": "img/proyek-kalkulator.png",
     "alt": "Tangkapan layar hasil kalkulator nilai di Console",
-    "deskripsi": "Rata-rata dan predikat nilai dengan fungsi JavaScript."
+    "deskripsi": "Kalkulator interaktif untuk menghitung rata-rata nilai, predikat, dan kelulusan KKM.",
+    "tautan": "kalkulator.html",
+    "teksTautan": "Coba Kalkulator Nilai"
   },
   {
     "judul": "Lima Soal Logika",
