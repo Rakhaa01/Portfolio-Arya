@@ -30,8 +30,8 @@
   {
     "judul": "Kalkulator Nilai Rapor",
     "kategori": "JavaScript",
-    "gambar": "img/proyek-kalkulator.png",
-    "alt": "Tangkapan layar hasil kalkulator nilai di Console",
+    "gambar": "img/proyek-kalkulator-hasil.png",
+    "alt": "Tangkapan layar kalkulator Arya dengan rata-rata 84,00, predikat B, dan lulus KKM",
     "deskripsi": "Kalkulator interaktif untuk menghitung rata-rata nilai, predikat, dan kelulusan KKM.",
     "tautan": "kalkulator.html",
     "teksTautan": "Coba Kalkulator Nilai"
