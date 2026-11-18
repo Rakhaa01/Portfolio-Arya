@@ -173,7 +173,7 @@ async function ambilRepo() {
 
   try {
     const response = await fetch(
-      "https://api.github.com/users/Arya-Nasrullah/repos?sort=updated&per_page=100"
+      "https://api.github.com/users/portofolio-arya/repos?sort=updated&per_page=100"
     );
 
     if (!response.ok) {
